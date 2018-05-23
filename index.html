@@ -178,7 +178,11 @@
 
 
 <script>
-/*
+  var filename = gup('filename');
+  if (filename === '') {
+    filename = './inputs/00000001.json'
+  }
+
   var inputs = null;
   $.ajax({
     type: 'GET',
@@ -189,13 +193,7 @@
     },
     async: false
   });
-*/
-  var inputs = [
-    {"image_path": "./images/crop_20180504 warm spot 1 focus problem_491.png"},
-    {"image_path": "./images/crop_20180501 warm spot phone 2_110.png"},
-    {"image_path": "./images/crop_20180501 warm spot phone 2_399.png"},
-    {"image_path": "./images/crop_20180504 warm spot 1 focus problem_566.png"}
-  ];
+
 
   var num_pages = inputs.length;
   var outputs = [];
