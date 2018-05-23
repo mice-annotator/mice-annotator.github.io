@@ -182,6 +182,7 @@
   if (filename === '') {
     filename = './inputs/00000001.json'
   }
+  echo(filename)
 
   var inputs = null;
   $.ajax({
@@ -193,7 +194,6 @@
     },
     async: false
   });
-
 
   var num_pages = inputs.length;
   var outputs = [];
