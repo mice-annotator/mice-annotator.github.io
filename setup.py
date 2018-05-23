@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     for k, input in enumerate(inputs):
         input_path = os.path.join(args.inputs_path, '{:08d}.json'.format(k + 1))
-        json.dump(input, open(input_path, 'w'), indent = 4)
+        json.dump(input, open(input_path, 'w'))
 
     input_paths = os.listdir(args.inputs_path)
 
