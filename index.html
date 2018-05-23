@@ -1,0 +1,305 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+
+  <title>Annotate the mice</title>
+
+  <script type='text/javascript' src='javascripts/jquery.js'></script>
+  <script type='text/javascript' src='javascripts/bbox.js'></script>
+
+  <style>
+    .content {
+      width: 800px;
+      padding: 25px;
+      margin: 25px auto;
+      background-color: #fff;
+      border-radius: 25px;
+      box-shadow: 0px 0px 10px #888;
+    }
+
+    .choice {
+      height: 50px;
+      width: 300px;
+      -webkit-appearance: button;
+      font-size: 16px;
+    }
+
+    .submit {
+      width: 800px;
+      padding: 0px;
+      margin: 0px auto;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    body {
+      background-color: #CCC;
+      font-family: Arial;
+      padding: 0;
+      margin: 0;
+    }
+
+    th {
+      text-align: left;
+    }
+    td {
+      text-align: left; 
+      vertical-align: top;
+    }
+  </style>
+</head>
+
+<body>
+  <div class='content'>
+    <h2 style='margin-top: 5px'>Instructions</h2>
+   
+    <p>You will be given images which might contain <b>multiple</b> mice. For each image, your task is to annotate <b>all</b> of the mice inside<b>(except mice that are heavily occluded)</b>, each with a <b>separate</b> bounding box.</p>
+  </div>
+  
+  <div class='content' id='container'></div>
+</body>
+</html>
+
+
+<script id='tutorial' type='text/html'>
+  <h2 style='margin-top: 5px'>Tutorial</h2>
+
+  <h3> 1. How to annotate?</h3>
+
+  <table style = "width:100%">
+    <col width="20">
+    <col width="460">
+    <col width="120">
+    <tr>
+      <td></td>
+      <td style = "padding-right:30px"> <h4>1.1 How to <font color= "blue">draw</font> a bounding box?</h4> <br/>
+      A bounding box will be a <b>green rectangle</b> that cover the whole mouse body. Left-click at the <b>upper-left corner</b> of the mouse, drag it towards the <b>lower-right corner </b> and release the click.</td>
+      <td><img src="./figures/tutorial 0515 create a bounding box.png" style = "width:120px;height:160px"> </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td> <h4>1.2 How to <font color= "blue">delete</font> a bounding box? </h4> <br/>
+      Click the "x" symbol at the upper-right corner of the bounding box to delete it.</td>
+      <td rowspan = "2"><img src="./figures/tutorial 0515 delete a bounding box.png" style = "width:120px;height:160px"> </td>
+    </tr>
+  </table>
+
+<h3> 2. What should the bounding box include?</h3>
+
+  <table style = "width:100%">
+    <col width="20">
+    <col width="450">
+    <col width="200">
+   
+    <tr>
+      <td></td>
+      <td >2.1 Mice that are <b>mostly occluded (more than 50%</b> of a mouse is occluded by other mice) <font color = "red"><b>should be ignored</b></font>. (i.e. Don't draw a bounding box for them)
+      <td> <img src="./figures/tutorial should not be included.png" style = "width:300px;height:180px;padding-left:30px;padding-bottom: 20px" align = 'center'></td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td >2.2 The head, body and <b>the beginning of the tail</b> should be included within the bounding box.<br/>
+      <td> <img src="./figures/tutorial connection.png" style = "width:350px;height:220px;padding-left:15px;padding-bottom: 10px" align = "right"> </td>
+    </tr>
+
+      <tr>
+      <td></td>
+      <td style ="padding-right:20px">2.3 The bounding box should be <b>as tight as possible</b>, like the yellow bounding box in this example is ideal. <br/>
+      <td> <img src="./figures/tutorial tight.png" style = "width:300px;height:220px;padding-left:35px"></td>
+    </tr>
+
+  </table>
+
+  <h3> 3. Typical mistakes </h3>
+  <img src = "./figures/tutorial mistakes.png" style = "width: 800px; padding-bottom:20px">
+<!--     <table>
+      <col width = 20>
+      <col width = 520>
+      <col width = 20>
+      <col width = 200>
+      <tr>
+        <td></td>
+        <td> 3.1 This mouse is too heavily occluded. You should not include it.</td>
+        <td></td>
+        <td><img src="./images/tutorial 0515 mistake 1 dont need to select.png" style = "width:200px;height:160px;padding-right:20px"> </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td> 3.2 Bounding box does not cover the connection between tail and body.</td>
+        <td></td>
+        <td><img src="./images/tutorial 0515 mistake 2 fail to include tail.png" style = "width:200px;height:160px;padding-right:20px"> </td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td> 3.3 Bounding box is too large. </td>
+        <td></td>
+        <td><img src="./images/tutorial 0515 mistake 3 too large.png" style = "width:200px;height:160px;padding-right:20px"> </td>
+      </tr>
+
+    </table> -->
+
+  <div class='submit'>
+    <form>
+      <input type='button' id='nextButton' value='Next'>
+    </form>
+  </div>
+</script>
+
+
+<script id='annotation' type='text/html'>
+  <h2 style='margin-top: 5px; text-align: center;'>Annotate the mice</h2>
+
+  <div align='center'>
+    <div id='annotator'></div>
+  </div>
+
+  <div class='submit'>
+    <form id='mturk_form' method='POST'>
+      <input type='hidden' id='assignmentId' name='assignmentId' value=''>
+      <input type='hidden' id='outputAnswer' name='outputAnswer' value=''>
+      <input type='button' id='backButton' value='Back'>
+      <input type='button' id='nextButton' value='Next'>
+      <input type='submit' id='submitButton' value='Submit'>
+    </form>
+  </div>
+
+  <br>
+
+  <div id='pageId' style='text-align: center;'></div>
+
+  <p style='color: #F00; text-align: center;'>
+    Note: We will review all work and reject that of poor quality. We appreciate your cooperation.
+  </p>
+</script>
+
+
+<script>
+/*
+  var inputs = null;
+  $.ajax({
+    type: 'GET',
+    url: gup('filename'),
+    dataType: 'json',
+    success: function (data) {
+      inputs = data;
+    },
+    async: false
+  });
+*/
+  var inputs = [
+    {"image_path": "./images/crop_20180504 warm spot 1 focus problem_491.png"},
+    {"image_path": "./images/crop_20180501 warm spot phone 2_110.png"},
+    {"image_path": "./images/crop_20180501 warm spot phone 2_399.png"},
+    {"image_path": "./images/crop_20180504 warm spot 1 focus problem_566.png"}
+  ];
+
+  var num_pages = inputs.length;
+  var outputs = [];
+  for (var k = 0; k < num_pages; ++k) {
+    outputs.push(null)
+  }
+  
+  var page_index = -1;
+  reloadPage();
+
+  function reloadPage() {
+    if (page_index === -1) {
+      document.getElementById('container').innerHTML = document.getElementById('tutorial').innerHTML;
+
+      if (gup('assignmentId') === 'ASSIGNMENT_ID_NOT_AVAILABLE') {
+        var button = document.getElementById('nextButton');
+        button.disabled = true;
+        button.value = 'You must ACCEPT the HIT before you can submit the results.';
+        button.css('width', '350px');
+      }
+
+      $('#nextButton').click(function () {
+        page_index++;
+        reloadPage();
+      });
+    } else {
+      document.getElementById('container').innerHTML = document.getElementById('annotation').innerHTML;
+
+      annotator = new BBoxAnnotator({
+        id: '#annotator',
+        input_method: 'fixed',
+        url: inputs[page_index].image_path,
+
+        onchange: function (entries) {
+          outputs[page_index] = entries;
+
+          var nextable = (page_index + 1 < num_pages && outputs[page_index] !== null);
+          document.getElementById('nextButton').disabled = !nextable;
+
+          var submittable = true;
+          for (var i = 0; i < num_pages; ++i) {
+            if (outputs[i] === null) {
+              submittable = false;
+              break;
+            }
+          }
+          document.getElementById('submitButton').disabled = !submittable;
+        }
+      });
+
+      if (outputs[page_index] !== null) {
+        for (var k = 0; k < outputs[page_index].length; ++k) {
+          annotator.add_entry(outputs[page_index][k]);
+        }
+      }
+
+      $('#backButton').click(function () {
+        page_index--;
+        reloadPage();
+      });
+
+      var nextable = (page_index + 1 < num_pages && outputs[page_index] !== null);
+      document.getElementById('nextButton').disabled = !nextable;
+
+      $('#nextButton').click(function () {
+        page_index++;
+        reloadPage();
+      });
+
+      var submittable = true;
+      for (var i = 0; i < num_pages; ++i) {
+        if (outputs[i] === null) {
+          submittable = false;
+          break;
+        }
+      }
+      document.getElementById('submitButton').disabled = !submittable;
+
+      $('#submitButton').click(function () {
+        document.getElementById('assignmentId').value = gup('assignmentId');
+        document.getElementById('outputAnswer').value = JSON.stringify(outputs);
+      });
+
+      var form = document.getElementById('mturk_form');
+      if (document.referrer && document.referrer.indexOf('workersandbox') !== -1) {
+        form.action = 'https://workersandbox.mturk.com/mturk/externalSubmit';
+      } else {
+        form.action = 'https://www.mturk.com/mturk/externalSubmit';
+      }
+
+      document.getElementById('pageId').innerHTML = 'Page ' + (page_index + 1) + ' of ' + num_pages;
+    }
+
+  }
+
+  function gup(name) {
+    var regexS = '[\\?&]' + name + '=([^&#]*)';
+    var regex = new RegExp(regexS);
+    var tmpURL = window.location.href;
+    var results = regex.exec(tmpURL);
+    if (results === null) {
+      return '';
+    } else {
+      return results[1];
+    }
+  }
+</script>
