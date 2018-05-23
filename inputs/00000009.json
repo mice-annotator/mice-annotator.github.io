@@ -1,1 +1,62 @@
-[{"image_path": "./images/crop_20180504 warm spot 2_443.png"}, {"image_path": "./images/crop_20180504 warm spot 2_915.png"}, {"image_path": "./images/crop_20180504 warm spot 1 focus problem_1078.png"}, {"image_path": "./images/crop_20180504 warm spot 1 focus problem_126.png"}, {"image_path": "./images/crop_20180501 warm spot phone 2_206.png"}, {"image_path": "./images/crop_20180504 warm spot 2_783.png"}, {"image_path": "./images/crop_20180504 warm spot 1 focus problem_243.png"}, {"image_path": "./images/crop_20180504 warm spot 2_995.png"}, {"image_path": "./images/crop_20180504 warm spot 2_889.png"}, {"image_path": "./images/crop_20180501 warm spot phone 2_513.png"}, {"image_path": "./images/crop_20180504 home cage 1_586.png"}, {"image_path": "./images/crop_20180504 warm spot 2_283.png"}, {"image_path": "./images/crop_20180504 warm spot 1 focus problem_394.png"}, {"image_path": "./images/crop_20180504 warm spot 1 focus problem_1008.png"}, {"image_path": "./images/crop_20180504 warm spot 1 focus problem_39.png"}, {"image_path": "./images/crop_20180501 warm spot phone 2_422.png"}, {"image_path": "./images/crop_20180501 warm spot phone 2_125.png"}, {"image_path": "./images/crop_20180501 warm spot phone 1_13.png"}, {"image_path": "./images/crop_20180504 warm spot 1 focus problem_612.png"}, {"image_path": "./images/crop_20180504 home cage 3_14.png"}]
+[
+    {
+        "image_path": "./images/crop_20180504 warm spot 2_443.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 2_915.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 1 focus problem_1078.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 1 focus problem_126.png"
+    },
+    {
+        "image_path": "./images/crop_20180501 warm spot phone 2_206.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 2_783.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 1 focus problem_243.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 2_995.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 2_889.png"
+    },
+    {
+        "image_path": "./images/crop_20180501 warm spot phone 2_513.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 home cage 1_586.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 2_283.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 1 focus problem_394.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 1 focus problem_1008.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 1 focus problem_39.png"
+    },
+    {
+        "image_path": "./images/crop_20180501 warm spot phone 2_422.png"
+    },
+    {
+        "image_path": "./images/crop_20180501 warm spot phone 2_125.png"
+    },
+    {
+        "image_path": "./images/crop_20180501 warm spot phone 1_13.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 warm spot 1 focus problem_612.png"
+    },
+    {
+        "image_path": "./images/crop_20180504 home cage 3_14.png"
+    }
+]

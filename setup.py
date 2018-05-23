@@ -12,6 +12,8 @@ if __name__ == '__main__':
     parser.add_argument('--tasks_per_input', default = 20, type = int)
     args = parser.parse_args()
 
+    if os.path.exists(args.inputs_path):
+        os.remove(args.inputs_path)
     if not os.path.exists(args.inputs_path):
         os.makedirs(args.inputs_path)
 
@@ -34,7 +36,7 @@ if __name__ == '__main__':
 
     for k, input in enumerate(inputs):
         input_path = os.path.join(args.inputs_path, '{:08d}.json'.format(k + 1))
-        json.dump(input, open(input_path, 'w'))
+        json.dump(input, open(input_path, 'w'), indent = 4)
 
     input_paths = os.listdir(args.inputs_path)
 
